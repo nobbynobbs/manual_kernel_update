@@ -5,7 +5,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/vagrant.ks<enter><wait>"
       ],
       "boot_wait": "10s",
-      "disk_size": "10240",
+      "disk_size": "25600",
       "export_opts": [
         "--manifest",
         "--vsys",
@@ -34,13 +34,13 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "1024"
+          "2048"
         ],
         [
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "2"
+          "4"
         ]
       ],
       "vm_name": "packer-centos-vm"
@@ -60,7 +60,7 @@
       "override": {
         "{{user `image_name`}}": {
           "scripts": [
-            "scripts/stage-1-kernel-update.sh",
+            "scripts/stage-1-kernel-build.sh",
             "scripts/stage-2-clean.sh"
           ]
         }

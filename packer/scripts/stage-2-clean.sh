@@ -21,6 +21,7 @@ rm -rf /var/cache/* /usr/share/doc/*
 rm -rf /var/cache/yum
 rm -rf /home/vagrant/*.iso
 rm  -f ~/.bash_history
+rm -rf /home/vagrant/linux*
 history -c
 
 rm -rf /run/log/journal/*
