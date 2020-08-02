@@ -2,7 +2,18 @@
 
 set -x
 
-# clean all
+# Install Guest additions
+mkdir /media/iso_guest_additions
+mount -o loop /home/vagrant/VBoxGuestAdditions.iso /media/iso_guest_additions
+/media/iso_guest_additions/VBoxLinuxAdditions.run
+
+
+# Uninstall compilers and other tools
+yum groupremove -y "Development Tools"
+yum remove -y kernel-devel ncurses-devel bison flex elfutils-libelf-devel openssl-devel bc
+
+
+# clean all caches
 yum update -y
 yum clean all
 

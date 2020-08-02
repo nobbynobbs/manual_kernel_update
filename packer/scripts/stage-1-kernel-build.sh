@@ -13,16 +13,17 @@ curl https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.7.12.tar.sign -o linux
 RSA_KEY=$(gpg --verify linux-5.7.12.tar.sign 2>&1 | grep "RSA key ID" | sed -r 's/.* (\w+)$/\1/')
 gpg --recv-keys $RSA_KEY
 gpg --verify linux-5.7.12.tar.sign
-tar xvf linux-5.7.12.tar && rm linux-5.7.12.tar
+tar xvf linux-5.7.12.tar && rm -f linux-5.7.12.tar
 
 cd linux-5.7.12
 
 # Install the required compilers and other tools
 yum group install -y "Development Tools"
-yum install -y ncurses-devel bison flex elfutils-libelf-devel openssl-devel bc
+yum install -y kernel-devel ncurses-devel bison flex elfutils-libelf-devel openssl-devel bc
 
 # Configure the Linux kernel features and modules
-make olddefconfig
+cp -v /boot/config-$(uname -r) .config  # copy current config
+make olddefconfig  # set new options to default
 
 # compile a Linux Kernel
 make -j $(nproc)
